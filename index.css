@@ -1,40 +1,162 @@
-body{
-    margin:0;
+body {
+  margin: 0;
+}
+
+.experience {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+}
+
+.scrollTarget {
+  position: absolute;
+  height: 300vh;
+  width: 100px;
+  top: 0;
+  z-index: 0;
+}
+
+.heading {
+  color: white;
+  opacity: 10000;
+  position: absolute;
+  top: 20;
+  left: 20;
+}
+
+.vignette-radial {
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  pointer-events: none;
+}
+
+.vignette-radial:after {
+  pointer-events: none;
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(circle, transparent 60%, black 150%);
+  /* background-color: red; */
+}
+
+.gsap-marker-scroller-start,
+.gsap-marker-scroller-end,
+.gsap-marker-start,
+.gsap-marker-end {
+  opacity: 0 !important;
+}
+
+#btn {
+  position: absolute;
+  z-index: 40;
+}
+
+
+#text1 h1 {
+  position: absolute;
+  z-index: 40;
+  color: white;
+  margin-left: 35%;
+  font-size: 6vw;
+  font-weight: 600;
+  animation: transformAnimation1 3s forwards 8s;
+}
+@keyframes transformAnimation1 {
+  0% {
+    transform: scale(1);
+    margin-top: 140%;
+    opacity: 0.5;
   }
-  .experience {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height:100vh;
-    z-index: 2;
+
+  100% {
+    transform: scale(1.5);
+    margin-top: 113%;
+    opacity: 1;
   }
-  
-  .scrollTarget {
-    position: absolute;
-    height: 1000vh;
-    width: 100px;
-    top: 0;
-    z-index: 0;
+}
+
+
+#text2 h1 {
+  position: absolute;
+  z-index: 41;
+  color: white;
+  margin-left: 30%;
+  font-size: 5vw;
+  font-weight: 600;
+  animation: transformAnimation2 3s forwards 8s;
+}
+@keyframes transformAnimation2 {
+  0% {
+    transform: scale(1);
+    margin-top: 110%;
+    opacity: 0.5;
   }
-  
-  .vignette-radial {
-    position: fixed;
-    z-index: 11;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    pointer-events: none;
+
+  100% {
+    transform: scale(0.5);
+    margin-top: 127%;
+    opacity: 1;
   }
-  
-  .vignette-radial:after {
-    pointer-events: none;
-    content: ' ';
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    background: radial-gradient(circle, transparent 60%, black 150%);
+}
+
+
+.visible {
+  opacity: 0;
+}
+
+.visible2 {
+  visibility: hidden;
+}
+
+.btn-grad {
+  background-color: #000;
+  margin-top: 42%;
+  margin-left: 42.75%;
+  padding: 10px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 12px;
+  display: block;
+  width: 12.5%;
+  opacity: 0.3;
+  border: 3px solid white;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+  opacity: 1;
+}
+
+
+@media (max-width: 1200px) {
+  .btn-grad {
+    font-size: 100% !important;
   }
-  .gsap-marker-scroller-start,.gsap-marker-scroller-end,.gsap-marker-start,.gsap-marker-end{
-    opacity: 0 !important;
+}
+
+@media (max-width: 580px) {
+  .btn-grad {
+    font-size: 75% !important;
+    padding: 0 !important;
   }
+  #text1 h1 {
+    margin-left: 20%;
+  }
+}
