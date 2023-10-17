@@ -1,7 +1,154 @@
 
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    var container = document.getElementById('container-x');
+    container.classList.add('loaded');
+
+    // Once the container has finished, the scroll appears
+    if (container.classList.contains('loaded')) {
+      // It is so that once the container is gone, the entire preloader section is deleted
+       var gif = preloader.querySelector("img"); // Assuming the GIF is inside the "preloader" element
+
+      gif.src = gif.src; // This will force the GIF to reload from the beginning
+
+      setTimeout(function() {
+        var preloader = document.getElementById('preloader');
+        preloader.parentNode.removeChild(preloader);
+      }, 0);
+    }
+  }, 5000);
+});
+
+
+var scrollTimeout;
+
+let fadeOutTimeout; // Declare a timeout variable for the fade-out effect
+
+window.addEventListener("scroll", function () {
+  // Clear any previously set fade-out timeout
+  clearTimeout(fadeOutTimeout);
+
+  // Set a new fade-out timeout
+  fadeOutTimeout = setTimeout(function () {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      var targetElement = document.getElementById("target");
+      if (targetElement) {
+        targetElement.style.transition = "opacity 1s"; // Apply a 1-second fade-out transition
+        targetElement.style.opacity = 0; // Set the opacity to 0 for the fade-out effect
+
+        // Remove the target element after the fade-out effect
+        setTimeout(function () {
+          targetElement.parentNode.removeChild(targetElement);
+          FitContent();
+          scrollToTop();
+        }, 1000); // Adjust the timing as needed (1 second in this case)
+      }
+    }
+  }, 5000); // This is the delay before starting the fade-out effect
+});
+
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 };
+
+function scrollToTop() {
+  // Scroll to the top of the screen
+  textContainer1.style.transition = "opacity 10s";
+  textContainer2.style.transition = "opacity 15s";
+  textContainer1.style.opacity = "1";
+textContainer2.style.opacity = "1";
+  
+}
+
+
+  function FitContent() {
+    // Adjust the screen size to fit the contents by scrolling to the top
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  
+    // Disable scrolling
+    disableScroll();
+  
+  }
+  
+
+
+function preventDefault(e) {
+  e.preventDefault();
+}
+
+function preventDefaultForScrollKeys(e) {
+  if (keys[e.keyCode]) {
+    preventDefault(e);
+    return false;
+  }
+}
+
+// modern Chrome requires { passive: false } when adding event
+var supportsPassive = false;
+try {
+  window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+    get: function () { supportsPassive = true; } 
+  }));
+} catch(e) {}
+
+var wheelOpt = supportsPassive ? { passive: false } : false;
+var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+// call this to Disable
+function disableScroll() {
+  window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+  window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+  window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+  window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
+const bkgElement = document.querySelector('.bkg');
+const imageUrls = ['url(roboplinth2.png)', 'url(roboplinth3.png)'];
+
+let currentImageIndex = 0;
+let togglesRemaining = 0;
+
+
+function toggleBackgroundImage(f) {
+  // Check if there are remaining toggles
+  if (togglesRemaining > 0) {
+    currentImageIndex = (currentImageIndex + 1) % 2;
+    bkgElement.style.backgroundImage = imageUrls[currentImageIndex];
+    togglesRemaining--;
+
+    // Schedule the next toggle
+    setTimeout(function () {
+      toggleBackgroundImage(f);
+    }, 150);
+  } else if (f === 0) {
+    // If no more toggles and f is 0, set to roboplinth2
+    bkgElement.style.backgroundImage = imageUrls[0];
+  } else {
+    // If no more toggles and f is not 0, set to roboplinth3
+    bkgElement.style.backgroundImage = imageUrls[1];
+  }
+}
+
+bkgElement.addEventListener('mouseover', function () {
+  togglesRemaining = 5; // Toggle 5 times when cursor is on bkg
+  toggleBackgroundImage(1); // Pass 1 to set to roboplinth3 initially
+});
+
+bkgElement.addEventListener('mouseout', function () {
+  togglesRemaining = 4; // Toggle 4 times when cursor is off bkg
+  toggleBackgroundImage(0); // Pass 0 to set to roboplinth2 initially
+});
+
 
 document.getElementById('btn').onclick = function () {
   scrollTo(100, 9000);
@@ -26,27 +173,7 @@ gsap.registerPlugin(ScrollTrigger);
 var textContainer1 = document.getElementById("text1");
 var textContainer2 = document.getElementById("text2");
 
-gsap.to(textContainer1, {
-  opacity: 1,
-  duration: 1,
-  scrollTrigger: {
-    trigger: ".scrollTarget",
-    start: "bottom bottom",
-    end: "bottom bottom",
-    scrub: 6,
-  },
-});
 
-gsap.to(textContainer2, {
-  opacity: 1,
-  duration: 1,
-  scrollTrigger: {
-    trigger: ".scrollTarget",
-    start: "bottom bottom",
-    end: "bottom bottom",
-    scrub: 6,
-  },
-});
 
 
 
@@ -64,8 +191,7 @@ gsap.to(btnContainer, {
 });
 
 
-textContainer1.style.opacity = "0";
-textContainer2.style.opacity = "0";
+
 
 
 var Mathutils = {
@@ -409,3 +535,5 @@ $(document).mousemove(function (evt) {
   cameraRotationProxyX = Mathutils.map(evt.clientX, 0, window.innerWidth, 3.24, 3.04);
   cameraRotationProxyY = Mathutils.map(evt.clientY, 0, window.innerHeight, -.1, .1);
 });
+
+
