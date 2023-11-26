@@ -45,6 +45,123 @@ window.addEventListener("scroll", function () {
         }, 1000); // Adjust the timing as needed (1 second in this case)
       }
     }
+    {
+      var main = document.querySelector(".main");
+
+var topi = main.getBoundingClientRect().top;
+console.log(topi)
+var initi = () => {
+  gsap.to(".elem2",{
+    y:"-100%",
+    duration:1,
+    delay:0,
+  })
+  gsap.to(".elem3",{
+    y:"-200%",
+    duration:1,
+    delay:0
+  })
+  gsap.to(".elem4",{
+    y:"-300%",
+    duration:1,
+    delay:0
+  })
+
+  gsap.to(".elem2,.elem3,.elem4",{
+    y:0,
+    duration:1,
+    opacity:1
+  })
+  gsap.to(".elem1",{
+    opacity:0,
+    duration:2,
+    delay:1.5,
+  })
+  gsap.to(".elem2",{
+    y:"-100%",
+    duration:1,
+    delay:1.5,
+  })
+  gsap.to(".elem3",{
+    y:"-200%",
+    duration:1,
+    delay:1.5,
+  })
+  gsap.to(".elem4",{
+    y:"-300%",
+    duration:1,
+    delay:1.5
+  })
+
+  gsap.to(".elem",{
+    opacity:0,
+    duration:0,
+    delay:2.2,
+  })
+  gsap.to(".soon",{
+    opacity:1,
+    duration:0.2,
+    delay:2.5,
+  })
+  gsap.to(".soon1",{
+    opacity:1,
+    duration:2.5,
+    delay:2,
+  })
+  gsap.to(".soon2",{
+    y:"-100%",
+    duration:0,
+    delay:0,
+  })
+  gsap.to(".soon3",{
+    y:"-200%",
+    duration:0,
+    delay:0
+  })
+  gsap.to(".soon4",{
+    y:"-300%",
+    duration:0,
+    delay:0
+  })
+
+  gsap.to(".soon2,.soon3,.soon4",{
+    y:0,
+    duration:1,
+    opacity:1,
+    delay:2.3
+  })
+
+  gsap.to(".soon2",{
+    y:"-100%",
+    delay:3.4,
+    duration:1,
+  })
+  gsap.to(".soon3",{
+    y:"-200%",
+    delay:3.4,
+    duration:1,
+  })
+  gsap.to(".soon4",{
+    y:"-300%",
+    delay:3.4,
+    duration:1,
+  })
+};
+
+ScrollTrigger.create({
+  trigger: ".main",
+  scroller: "body",
+  markers: false,
+  start: "top 1",
+  end: "top 0",
+  scrub: true,
+  onEnter: () => {
+    initi();
+  },
+  onLeave: () => {
+  },
+});
+    }
   }, 5000); // This is the delay before starting the fade-out effect
 });
 
@@ -53,7 +170,7 @@ window.onbeforeunload = function () {
   window.scrollTo({
     top: 0,
     left: 0,
-    behavior: "smooth",
+    behavior: "instant",
   });
 };
 
@@ -112,44 +229,88 @@ function disableScroll() {
   window.addEventListener('keydown', preventDefaultForScrollKeys, false);
 }
 
-const bkgElement = document.querySelector('.bkg');
-const imageUrls = ['url(roboplinth2.png)', 'url(roboplinth3.png)'];
-
-let currentImageIndex = 0;
-let togglesRemaining = 0;
 
 
-function toggleBackgroundImage(f) {
-  // Check if there are remaining toggles
-  if (togglesRemaining > 0) {
-    currentImageIndex = (currentImageIndex + 1) % 2;
-    bkgElement.style.backgroundImage = imageUrls[currentImageIndex];
-    togglesRemaining--;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    // Schedule the next toggle
-    setTimeout(function () {
-      toggleBackgroundImage(f);
-    }, 150);
-  } else if (f === 0) {
-    // If no more toggles and f is 0, set to roboplinth2
-    bkgElement.style.backgroundImage = imageUrls[0];
-  } else {
-    // If no more toggles and f is not 0, set to roboplinth3
-    bkgElement.style.backgroundImage = imageUrls[1];
-  }
+let interval = null;
+
+document.querySelector("h2").onmouseover = event => {  
+  let iteration = 0;
+  
+  clearInterval(interval);
+  
+  interval = setInterval(() => {
+    event.target.innerText = event.target.innerText
+      .split("")
+      .map((letter, index) => {
+        if(index < iteration) {
+          return event.target.dataset.value[index];
+        }
+      
+        return letters[Math.floor(Math.random() * 26)]
+      })
+      .join("");
+    
+    if(iteration >= event.target.dataset.value.length){ 
+      clearInterval(interval);
+    }
+    
+    iteration += 1 / 3;
+  }, 30);
 }
+// const bkgElement = document.querySelector('.bkg');
+// const imageUrls = ['url(roboplinth2.png)', 'url(roboplinth3.png)'];
 
-bkgElement.addEventListener('mouseover', function () {
-  togglesRemaining = 5; // Toggle 5 times when cursor is on bkg
-  toggleBackgroundImage(1); // Pass 1 to set to roboplinth3 initially
-});
-
-bkgElement.addEventListener('mouseout', function () {
-  togglesRemaining = 4; // Toggle 4 times when cursor is off bkg
-  toggleBackgroundImage(0); // Pass 0 to set to roboplinth2 initially
-});
+// let currentImageIndex = 0;
+// let togglesRemaining = 0;
+// let toggleOff = true;
+// let hasToggled = false; 
 
 
+// function toggleBackgroundImage(f) {
+//   // Check if there are remaining toggles
+//   if (togglesRemaining > 0) {
+//     currentImageIndex = (currentImageIndex + 1) % 2;
+//     bkgElement.style.backgroundImage = imageUrls[currentImageIndex];
+//     togglesRemaining--;
+
+//     // Schedule the next toggle
+//     setTimeout(function () {
+//       toggleBackgroundImage(f);
+//     }, 150);
+//   } else if (f === 0) {
+//     // If no more toggles and f is 0, set to roboplinth2
+//     bkgElement.style.backgroundImage = imageUrls[0];
+//   } else {
+//     // If no more toggles and f is not 0, set to roboplinth3
+//     bkgElement.style.backgroundImage = imageUrls[1];
+//   }
+// }
+
+// const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+// if (!isMobile){
+  
+//   bkgElement.addEventListener('mouseover', function () {
+//     togglesRemaining = 5; // Toggle 5 times when cursor is on bkg
+//     toggleBackgroundImage(1); // Pass 1 to set to roboplinth3 initially
+//   });
+  
+//   bkgElement.addEventListener('mouseout', function () {
+//     togglesRemaining = 4; // Toggle 4 times when cursor is off bkg
+//     toggleBackgroundImage(0); // Pass 0 to set to roboplinth2 initially
+//   });
+// }
+// else {
+//   bkgElement.addEventListener('touchstart', function () {
+//   if (isMobile && toggleOff && !hasToggled) {
+//     hasToggled = true;
+//     // togglesRemaining=1;
+//     toggleBackgroundImage(1);
+//   }
+// });
+// }
 document.getElementById('btn').onclick = function () {
   scrollTo(100, 9000);
 }
@@ -160,6 +321,19 @@ const button = document.getElementById("btn");
 button.addEventListener("click", () => {
   button.classList.add('visible2');
 });
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY === 0) {
+    button.classList.remove('visible2');
+  }
+});
+
+document.getElementById('btn').onclick = function () {
+  scrollTo(100, 9000);
+}
+
+const text = document.getElementById("text");
+
 
 window.addEventListener("scroll", () => {
   if (window.scrollY === 0) {
@@ -189,6 +363,7 @@ gsap.to(btnContainer, {
     scrub: 20,
   },
 });
+
 
 
 

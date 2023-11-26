@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plinth 2k24</title>
   <link rel="stylesheet" type="text/css" href="./index.css" />
   <link rel="stylesheet" type="text/css" href="./animated.css" />
@@ -27,47 +28,72 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body style="background-image: url('bkg.jpg'); background-size: cover;background-repeat: no-repeat; background-color: black;">
+<body style="background-color: black;">
   <!-- Preloader -->
   <div id="preloader" class="preloader" style="height: 100%; width: 100%;">
     <div id="container-x" class="container-preloader" style="height: 100%; width: 100%;">
       <div class="animation-preloader" style="height: 100%; width: 100%;background-color: black;">
-        <div style="height: 100%; width: 50%;margin-left: 30%;margin-top: 10%;">
-          <img src="3d pre.gif" height="60%">
+        <div class="pregif" >
+          <img src="pre.GIF" height="100%" width="100%">
         </div>
       </div>
     </div>
   </div>
   <div class="container-x">
-  <div class="bkg fadeInDown" style="margin-top: 2.5%;">
+    <h2 class="soon1" data-value="PLINTH 2024" style="z-index:3000;opacity: 0;">COMING SOON</h2>
+ 
+    <div class="main" style="z-index: -3;margin-top: 5%;">
+      <div class="elem" style="z-index: -3;margin-left: 5%;margin-top: -1%;">
+        <div class="elem1" style="z-index:-4;">Plinth'24</div>
+          <div class="elem2" style="z-index: -3;">Plinth'24</div>
+          <div class="elem3" style="z-index: -3;">Plinth'24</div>
+          <div class="elem4" style="z-index: -3;">Plinth'24</div>
+      </div>
+      
+      <div class="soon" style="z-index: -4;margin-left: 4%;opacity: 0;">
+        
+          <div class="soon2" style="z-index: -4;">COMING SOON</div>
+          <div class="soon3" style="z-index: -4;">COMING SOON</div>
+          <div class="soon4" style="z-index: -4;">COMING SOON</div>
+      </div>
+ 
 
-    <div id="text1" class="visible" >
+     </div>
+  <div class="bkg" style="position: absolute;">
+    
+    <!-- <div id="text1" class="visible" >
       <h1>PLINTH'24</h1>
     </div>
     <div id="text2" class="visible" >
       <h1>COMING SOON !</h1>
-    </div>
-   
+    </div> -->
+    
+    
+      
+      
+       
   
-  <!-- <div>
-    <div class="image-container">
-      <img class="initial-image" src="roboplinth2.png"  style="width: 100%;height: 100%;">
-      <img class="hover-image" src="roboplinth3.png" style="width: 100%;height: 100%;">
-  </div> -->
-    </div>
  
 
   <div id="target">
-    <img src="illustrator1.svg" class="btn-grad" id="btn" style="margin-top: -10%;">
+    <div class="text" id="text"><h1 style="margin-top: -25%;margin-left: -42%;">Lorem ipsum dolor sit amet consectetur.</h1>></div>
+    <img src="illustrator1 (1).svg" class="btn-grad" id="btn" style="margin-top: -10%;position: fixed;">
   
   <canvas class="experience"></canvas>
   <div class="scrollTarget"></div>
   <div class="vignette-radial"></div>
 </div>
   </div>
+  <div id="particles-js" style="z-index: -2; position: absolute; top: 0; left: 10%; width: 100%; height: 100%;"></div>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="./script.js"></script>
   <script src="animation.js"></script>
+  <script src="particles.js"></script>
+  <script src="app.js"></script>
+  
   <script>
     const imageContainer = document.querySelector('.image-container');
     const initialImage = imageContainer.querySelector('.initial-image');
